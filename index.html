@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Худалдаалагдаж буй газрын зар, үнийн шинжилгээ, газар авах боломжийн мэдээлэл — Улаанбаатар ба Төв аймаг">
+<title>LANDWISE — Газрын зар ба шинжилгээ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#top"><span class="brand-icon" aria-hidden="true">◈</span><span>LANDWISE <small>MONGOLIA</small></span></a>
+  <nav aria-label="Үндсэн цэс">
+    <a href="#listings">Зарууд</a><a href="#free">Үнэгүй газар</a><a href="#analysis">Шинжилгээ</a><a href="#compare">Харьцуулах <b id="nav-compare" class="pill-count">0</b></a><a href="#available">Газар авах боломж</a><a href="#sources">Эх сурвалж</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-copy">
+    <span class="sample-pill">● Жишээ зарууд — бодит зараар солих загвар</span>
+    <h1>Газраа <em>үнэ, байршил, эрхээр</em> нь харьцуулж сонго.</h1>
+    <p>Улаанбаатар орчим болон Төв аймгийн худалдаалагдаж буй газрын зарыг нэг дор харж, бүсийн дундаж үнэтэй харьцуулна. Үнэ төлбөргүй өмчлөх, дуудлага худалдаагаар авах боломжийн мэдээллийг албан эх сурвалжтайгаар орууллаа.</p>
+    <form id="quick" class="quick" aria-label="Хурдан хайлт">
+      <label><span>Бүс</span><select id="q-region"><option value="all">Бүх бүс</option></select></label>
+      <label><span>Зориулалт</span><select id="q-purpose"><option value="all">Бүх зориулалт</option></select></label>
+      <label><span>Төсөв (сая ₮ хүртэл)</span><input id="q-budget" type="number" min="0" step="5" inputmode="numeric" placeholder="Ж: 80"></label>
+      <button type="submit">Газар хайх →</button>
+    </form>
+  </div>
+  <div class="hero-side">
+    <div><span>Нийт зар</span><strong id="h-count">—</strong></div>
+    <div><span>Суурьшлын газрын медиан</span><strong id="h-median">—</strong><small>₮ / м²</small></div>
+    <div><span>0.07 га орчим газрын медиан үнэ</span><strong id="h-007">—</strong></div>
+  </div>
+</section>
+
+<section id="listings" class="block">
+  <div class="block-head">
+    <div><span class="eyebrow">01 / ЗАРУУД</span><h2>Худалдаалагдаж буй газар <span id="res-count" class="count">0</span></h2></div>
+    <label class="sort"><span>Эрэмбэ</span><select id="sort">
+      <option value="new">Шинэ нь эхэндээ</option><option value="price-asc">Үнэ: багаас</option><option value="price-desc">Үнэ: ихээс</option>
+      <option value="ppm-asc">₮/м²: багаас</option><option value="deal">Бүсийн медианаас хамгийн доогуур</option><option value="area-desc">Талбай: ихээс</option><option value="km-asc">УБ-д ойр</option>
+    </select></label>
+  </div>
+  <div class="listing-layout">
+    <aside class="filters" aria-label="Шүүлтүүр">
+      <div class="f"><label for="f-region">Бүс</label><select id="f-region"><option value="all">Бүх бүс</option></select></div>
+      <div class="f"><label for="f-purpose">Зориулалт</label><select id="f-purpose"><option value="all">Бүх зориулалт</option></select></div>
+      <div class="f"><label for="f-right">Эрхийн төрөл</label><select id="f-right"><option value="all">Бүх төрөл</option></select></div>
+      <div class="f two"><div><label for="f-pmin">Үнэ, сая ₮ (доод)</label><input id="f-pmin" type="number" min="0" inputmode="numeric" placeholder="0"></div><div><label for="f-pmax">(дээд)</label><input id="f-pmax" type="number" min="0" inputmode="numeric" placeholder="∞"></div></div>
+      <div class="f two"><div><label for="f-amin">Талбай, м² (доод)</label><input id="f-amin" type="number" min="0" inputmode="numeric" placeholder="0"></div><div><label for="f-amax">(дээд)</label><input id="f-amax" type="number" min="0" inputmode="numeric" placeholder="∞"></div></div>
+      <div class="f"><label for="f-km">УБ-аас хамгийн хол: <b id="f-km-v">140 км</b></label><input id="f-km" type="range" min="20" max="140" step="5" value="140"></div>
+      <fieldset class="f checks"><legend>Дэд бүтэц</legend>
+        <label><input type="checkbox" id="f-power"> Цахилгаантай</label>
+        <label><input type="checkbox" id="f-paved"> Засмал зам</label>
+        <label><input type="checkbox" id="f-water"> Ус (худаг/төвийн)</label>
+        <label><input type="checkbox" id="f-fenced"> Хашаатай</label>
+      </fieldset>
+      <input id="f-text" class="f-text" type="search" placeholder="Түлхүүр үгээр хайх…" aria-label="Түлхүүр үгээр хайх">
+      <button id="f-reset" class="btn subtle" type="button">Шүүлтүүр цэвэрлэх</button>
+      <div class="warning"><strong>⚠ Худалдан авахаас өмнө</strong><p>Зар дахь мэдээлэл баталгаа биш. Гэрчилгээ, нэгж талбарын дугаар, өмчлөгч, барьцааг eGazar болон улсын бүртгэлээр заавал шалгана.</p></div>
+    </aside>
+    <div>
+      <div id="cards" class="cards" aria-live="polite"></div>
+      <button id="more" class="btn outline more" type="button" hidden>Цааш үзэх</button>
+    </div>
+  </div>
+</section>
+
+<section id="free" class="block">
+  <div class="block-head"><div><span class="eyebrow">02 / ҮНЭГҮЙ ГАЗАР</span><h2>Үнэ төлбөргүй авч болох газар хайх</h2>
+    <p class="sub">Иргэн бүр гэр бүлийн хэрэгцээнд газрыг нэг удаа үнэгүй өмчилнө. Доорх бүсүүдийг <b>байршил</b>, <b>дэд бүтэц</b>, <b>ирээдүйн төлөв</b>-өөр үнэлж эрэмбэлэв. Жингээ өөрчилж өөрт тохирох бүсийг олоорой.</p></div>
+    <div class="deadline" id="fz-deadline"></div></div>
+
+  <div class="free-top">
+    <div class="elig">
+      <h3>1. Би эрхтэй юу?</h3>
+      <fieldset><legend>Монгол Улсын иргэн үү?</legend><label><input type="radio" name="e-cit" value="y" checked> Тийм</label><label><input type="radio" name="e-cit" value="n"> Үгүй</label></fieldset>
+      <fieldset><legend>Өмнө нь газар үнэгүй өмчилж байсан уу?</legend><label><input type="radio" name="e-used" value="n" checked> Үгүй</label><label><input type="radio" name="e-used" value="y"> Тийм</label><label><input type="radio" name="e-used" value="?"> Мэдэхгүй</label></fieldset>
+      <fieldset><legend>Хаана авахыг хүсэж байна?</legend><label><input type="radio" name="e-where" value="capital" checked> Нийслэл</label><label><input type="radio" name="e-where" value="aimag"> Аймгийн төв</label><label><input type="radio" name="e-where" value="soum"> Сумын төв</label></fieldset>
+      <div id="elig-out" class="elig-out" aria-live="polite"></div>
+    </div>
+    <div class="weights">
+      <h3>2. Танд юу чухал вэ?</h3>
+      <p class="fine-d">Шалгуур бүрийн жинг тохируулна. Нийт оноо 100-аас.</p>
+      <label class="w"><span>Байршил <b id="w-loc-v"></b></span><input id="w-loc" type="range" min="0" max="10" value="4"><small>УБ-аас зай, хүрэх зам, тээвэр</small></label>
+      <label class="w"><span>Дэд бүтэц <b id="w-inf-v"></b></span><input id="w-inf" type="range" min="0" max="10" value="4"><small>Цахилгаан, ус/дулаан, сургууль, эмнэлэг, зам</small></label>
+      <label class="w"><span>Ирээдүйн төлөв <b id="w-out-v"></b></span><input id="w-out" type="range" min="0" max="10" value="3"><small>Хэрэгжиж буй томоохон төсөл, хотын төлөвлөлт</small></label>
+      <div class="presets"><span>Бэлэн тохиргоо:</span><button type="button" data-preset="4,4,3">Тэнцвэртэй</button><button type="button" data-preset="8,4,1">Одоо амьдрах</button><button type="button" data-preset="2,2,9">Ирээдүйд үнэ цэнэ</button></div>
+      <div class="fz-filters">
+        <label>Төрөл<select id="fz-type"><option value="all">Бүгд</option><option value="capital">Нийслэлийн дүүрэг (0.07 га)</option><option value="aimag">Аймгийн төв (0.35 га)</option><option value="soum">Сумын төв (0.5 га)</option></select></label>
+        <label>УБ-аас хамгийн хол<select id="fz-km"><option value="999">Хязгааргүй</option><option value="50">50 км</option><option value="70">70 км</option><option value="110">110 км</option></select></label>
+        <label class="chk"><input type="checkbox" id="fz-open"> Зөвхөн хязгаарлалтгүй</label>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="fz-h">3. Эрэмбэлэгдсэн бүсүүд <span id="fz-count" class="count">0</span></h3>
+  <div id="fz-list" class="fz-list"></div>
+
+  <details class="rubric">
+    <summary>Шалгуурыг хэрхэн үнэлсэн бэ? (1–5 оноо)</summary>
+    <div class="rubric-grid">
+      <div><h4>Байршил</h4><ul><li><b>5</b> — УБ-аас ≤ 30 км, нийтийн тээвэртэй</li><li><b>4</b> — 30–45 км, засмал зам</li><li><b>3</b> — 45–70 км, гол замын дагуу</li><li><b>2</b> — 70–140 км, бие даасан суурин</li><li><b>1</b> — алслагдсан, зам муу</li></ul></div>
+      <div><h4>Дэд бүтэц</h4><ul><li><b>5</b> — төвийн ус, дулаан, бохир ус; бүх үйлчилгээ</li><li><b>4</b> — төвд төвлөрсөн ус/дулаан, сургууль, эмнэлэг</li><li><b>3</b> — цахилгаан, засмал зам, сургууль; ус худгаас</li><li><b>2</b> — цахилгаантай, үйлчилгээ хязгаарлагдмал</li><li><b>1</b> — дэд бүтэц бараг үгүй</li></ul></div>
+      <div><h4>Ирээдүйн төлөв</h4><ul><li><b>5</b> — шинэ хот / мега төслийн дэргэд, бүтээн байгуулалт эхэлсэн</li><li><b>4</b> — батлагдсан томоохон төсөл хэрэгжиж буй</li><li><b>3</b> — зам, дэд бүтцийн сайжруулалт төлөвлөгдсөн</li><li><b>2</b> — томоохон төсөл олдсонгүй</li><li><b>1</b> — хүн ам буурч буй / хязгаарлалттай</li></ul></div>
+    </div>
+    <p class="fine-d">Оноо нь LANDWISE-ийн нээлттэй эх сурвалжид (хууль, хэвлэл мэдээ, төслийн мэдээлэл) тулгуурласан үнэлгээ бөгөөд албан ёсны дүгнэлт биш. Тодорхой нэгж талбар, хил заагийг egazar.gov.mn болон харьяа газрын албанаас шалгана.</p>
+  </details>
+</section>
+
+<section id="analysis" class="block">
+  <div class="block-head"><div><span class="eyebrow">03 / ШИНЖИЛГЭЭ</span><h2>Үнийн шинжилгээ</h2><p class="sub">Тооцоог доорх зарууд дээр хийв (одоогоор жишээ өгөгдөл). Суурьшлын газар = зуслан, гэр бүлийн хэрэгцээ, үйлчилгээ; газар тариалангийн талбайг тусад нь ₮/га-аар тооцно.</p></div></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="charts">
+    <figure class="chart-card">
+      <figcaption><h3>Бүсийн медиан үнэ, ₮/м²</h3><p>Суурьшлын газар · зарын тоо баганын дэргэд</p></figcaption>
+      <div id="chart-region" class="chart"></div>
+    </figure>
+    <figure class="chart-card">
+      <figcaption><h3>Улаанбаатараас алслах тусам үнэ</h3><p>Зар бүр нэг цэг · ₮/м² (лог шкал) · эрхийн төрлөөр</p></figcaption>
+      <div id="legend-scatter" class="legend"></div>
+      <div id="chart-scatter" class="chart"></div>
+    </figure>
+  </div>
+  <div class="table-card">
+    <h3>Бүсээр нэгтгэсэн хүснэгт</h3>
+    <div class="table-wrap"><table id="region-table"><thead><tr><th>Бүс</th><th>Зар</th><th>Медиан ₮/м²</th><th>Хамгийн бага – их ₮/м²</th><th>Медиан нийт үнэ</th><th>УБ-аас</th><th>Газар тариалан, ₮/га</th></tr></thead><tbody></tbody></table></div>
+  </div>
+  <div class="calc">
+    <div class="calc-in">
+      <span class="eyebrow">ТӨСВИЙН ТООЦООЛУУР</span>
+      <h3>Миний төсвөөр хаана, хэр хэмжээний газар авах вэ?</h3>
+      <label>Төсөв, сая ₮ <input id="c-budget" type="number" min="1" value="60" inputmode="numeric"></label>
+      <label>Хүссэн талбай, м² <input id="c-area" type="number" min="100" value="700" step="50" inputmode="numeric"></label>
+      <p class="fine">Бүсийн медиан ₮/м²-ээр тооцсон ойролцоо утга. Бодит үнэ байршил, эрх, дэд бүтцээс их хамаарна.</p>
+    </div>
+    <div id="calc-out" class="calc-out"></div>
+  </div>
+</section>
+
+<section id="compare" class="block">
+  <div class="block-head"><div><span class="eyebrow">04 / ХАРЬЦУУЛАХ</span><h2>Газрыг зэрэгцүүлж харах</h2><p class="sub">Зарын “+ Харьцуулах” товчоор 3 хүртэл газар сонгоно.</p></div><button id="cmp-clear" class="btn small" type="button">Сонголт арилгах</button></div>
+  <div id="cmp" class="cmp"></div>
+</section>
+
+<section id="available" class="block">
+  <div class="block-head"><div><span class="eyebrow">05 / ГАЗАР АВАХ БОЛОМЖ</span><h2>Газар авах гурван зам</h2><p class="sub">Хуулийн мэдээллийг албан болон хэвлэлийн эх сурвалжаас товчлов. Шийдвэр гаргахаасаа өмнө харьяа газрын албанаас лавлана уу.</p></div></div>
+  <div class="paths">
+    <article class="path">
+      <span class="path-no">1</span><h3>Үнэ төлбөргүй өмчлөх</h3>
+      <p>Монгол Улсын иргэн гэр бүлийн хэрэгцээний зориулалтаар газрыг <b>нэг удаа үнэгүй</b> өмчлөх эрхтэй.</p>
+      <ul>
+        <li>Нийслэлд <b>0.07 га</b> хүртэл, аймгийн төвд <b>0.35 га</b>, сумын төвд <b>0.5 га</b> хүртэл.</li>
+        <li>Иргэнд газар өмчлүүлэх тухай хууль <b>2028 оны 5-р сарын 1</b> хүртэл үйлчилнэ.</li>
+        <li>2003–2025 онд нийслэлийн <b>213,579</b> иргэн <b>11,396 га</b> газар өмчилсөн (нийслэлийн иргэдийн ~12%).</li>
+        <li>2026 онд нийслэлд <b>2,843</b> иргэнд <b>156.42 га</b> газар өмчлүүлэхээр НИТХ баталсан.</li>
+      </ul>
+      <p class="path-foot">Хаана: харьяа дүүрэг/сумын газрын алба, eGazar.</p>
+    </article>
+    <article class="path">
+      <span class="path-no">2</span><h3>Хувь хүнээс худалдан авах</h3>
+      <p>Зарын ихэнх нь энэ төрөл. <b>Өмчлөлийн гэрчилгээтэй</b> газрыг худалдах-худалдан авах гэрээгээр, <b>эзэмших эрхийг</b> газрын албаны шийдвэрээр шилжүүлнэ.</p>
+      <ul>
+        <li>Газар өмчлөх эрх зөвхөн Монгол Улсын иргэнд байна.</li>
+        <li>Эзэмших эрх нь өмчлөл биш — хугацаа, зориулалт, төлбөрийн нөхцөлтэй.</li>
+        <li>Гэрээг нотариатаар батлуулж, улсын бүртгэлд бүртгүүлснээр эрх шилжинэ.</li>
+      </ul>
+      <p class="path-foot">Хаана: нотариат, улсын бүртгэл, e-Mongolia.</p>
+    </article>
+    <article class="path">
+      <span class="path-no">3</span><h3>Дуудлага худалдаа</h3>
+      <p>Төрийн газрыг эзэмших, ашиглах эрхийг дуудлага худалдаагаар олгоно.</p>
+      <ul>
+        <li>Анхны үнийг ГЗБГЗЗГ-ын даргын 2025.05.20-ны А/188 тушаалаар батлагдсан аргачлалаар тогтооно.</li>
+        <li>Тооцоо нь бүсийн суурь үнэлгээнээс эхэлнэ; жишээ нь нийслэлийн 1 м² газрын суурь үнэлгээ 121,600 ₮ (Засгийн газрын 2018 оны 182-р тогтоол), дээр нь зэрэглэл, зориулалтын коэффициент.</li>
+        <li>Иргэнд олгох 0.07 га-аас бусад газрыг дуудлага худалдаагаар олгох чиглэлийн хуулийн өөрчлөлт хэлэлцэгдэж байна.</li>
+      </ul>
+      <p class="path-foot">Хаана: газрын албаны зарлал, цахим дуудлага худалдаа.</p>
+    </article>
+  </div>
+  <div class="checklist">
+    <h3>Газар худалдан авахын өмнөх 6 алхам <small>(ерөнхий зөвлөмж)</small></h3>
+    <ol>
+      <li><b>Баримт авах.</b> Гэрчилгээ, кадастрын зураг, нэгж талбарын дугаарын хуулбарыг худалдагчаас авна.</li>
+      <li><b>eGazar-аар шалгах.</b> Нэгж талбарын дугаар, хил зааг, зориулалт таарч байгаа эсэх.</li>
+      <li><b>Өмчлөгч, барьцаа.</b> Улсын бүртгэлээс өмчлөгч, барьцаа, битүүмжлэл байгаа эсэхийг лавлана.</li>
+      <li><b>Газар дээр нь очих.</b> Хилийн цэг, зам, цахилгаан, усны бодит байдлыг нүдээр шалгана.</li>
+      <li><b>Төлөвлөлттэй тулгах.</b> Газар чөлөөлөлт, хөгжлийн ерөнхий төлөвлөгөөнд хамрагдсан эсэхийг газрын албанаас асууна.</li>
+      <li><b>Гэрээ, бүртгэл.</b> Гэрээг нотариатаар батлуулж, эрхээ улсын бүртгэлд бүртгүүлсний дараа төлбөрөө бүрэн шилжүүлнэ.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sources" class="block sources">
+  <div class="block-head"><div><span class="eyebrow">06 / ЭХ СУРВАЛЖ</span><h2>Эх сурвалж ба тайлбар</h2></div></div>
+  <div class="source-grid">
+    <a href="https://egazar.gov.mn/map" target="_blank" rel="noopener"><strong>eGazar ↗</strong><span>Нэгж талбар, кадастрын албан зураг</span></a>
+    <a href="https://www.gazar.gov.mn/" target="_blank" rel="noopener"><strong>ГЗБГЗЗГ ↗</strong><span>Газрын хууль, төлөвлөгөө, албан мэдэгдэл</span></a>
+    <a href="https://e-mongolia.mn/" target="_blank" rel="noopener"><strong>e-Mongolia ↗</strong><span>Үл хөдлөх хөрөнгийн лавлагаа</span></a>
+    <a href="https://legalinfo.mn/en/edtl/16758346730611" target="_blank" rel="noopener"><strong>Иргэнд газар өмчлүүлэх тухай хууль ↗</strong><span>legalinfo.mn — 5.1.4, 7.2 зүйл</span></a>
+    <a href="https://ikon.mn/n/3o6k" target="_blank" rel="noopener"><strong>Хуулийн хугацаа 2028 онд дуусна ↗</strong><span>ikon.mn — 2003–2025 оны өмчлөлийн тоо</span></a>
+    <a href="https://ikon.mn/n/3r9v" target="_blank" rel="noopener"><strong>2026 оны өмчлүүлэх газар ↗</strong><span>ikon.mn — 2,843 иргэн, 156.42 га</span></a>
+    <a href="https://www.pwc.com/mn/en/tax_alerts/tax_alert_06_2025.html" target="_blank" rel="noopener"><strong>Дуудлага худалдааны анхны үнэ ↗</strong><span>PwC Mongolia — А/188 аргачлал (2025)</span></a>
+    <a href="https://sonin.mn/news/peconomy/124918" target="_blank" rel="noopener"><strong>0.07 га-аас бусад газрыг дуудлага худалдаагаар ↗</strong><span>sonin.mn — хуулийн төслийн чиглэл</span></a>
+  </div>
+  <p class="fineprint">Энэ хувилбарын <b>бүх зар жишээ (зохиомол)</b> бөгөөд бодит худалдагч, үнийг илэрхийлэхгүй. Бодит зараар солихдоо <code>listings.js</code> файлыг шинэчилнэ. Шинжилгээ, тооцоолуур нь тухайн зарууд дээр тулгуурлах тул өгөгдөл солигдоход автоматаар шинэчлэгдэнэ.</p>
+</section>
+</main>
+
+<footer><span>© 2026 LANDWISE Mongolia · Газрын зар ба шинжилгээ</span><span>Худалдан авах, өмчлөх эрхийг газрын албаар баталгаажуулна.</span></footer>
+
+<div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-title"><div class="modal-card"><button class="modal-x" id="modal-x" type="button" aria-label="Хаах">×</button><div id="modal-body"></div></div></div>
+<div id="tip" class="tip" role="tooltip" hidden></div>
+<div id="toast" class="toast" hidden></div>
+<script src="listings.js"></script>
+<script src="freeland.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
